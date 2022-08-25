@@ -1,4 +1,4 @@
-# Spring Rest Shop Application
+# Spring Boot REST API Shop Application
 Spring Boot REST API of shop web application developed through process of learning. <br />
 <br />
 TODO: <br />
