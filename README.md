@@ -1,10 +1,11 @@
 # Spring Boot REST API Shop Application
 Spring Boot REST API of shop web application developed through process of learning. <br />
 <br />
-Currently available entities:
-⦿ Customer
-⦿ Product
-<h1> I'm going to refactor this code, so I could also add new class called <b>Order</b> which could contain both customers and products sold/bought</h1>
+Currently available entities: <br />
+⦿ Customer <br />
+⦿ Product <br />
+<br />
+<i> I'm going to refactor this code, so I could also add new class called <b>Order</b> which could contain both customers and products sold/bought</i>
 
 TODO: <br />
 ⦿ Implement Spring Security authentication system <br />
