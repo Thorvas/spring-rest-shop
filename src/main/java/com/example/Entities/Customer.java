@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 //Customer entity mapped to database
@@ -33,6 +34,12 @@ public class Customer {
 	
 	@Column(name="email")
 	private String email;
+	
+	@OneToOne(mappedBy="owner")
+	private Order ownedOrder;
+	
+	@OneToOne(mappedBy="buyer")
+	private Order orderBuyer;
 	
 	@OneToMany(mappedBy="productOwner", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
 	private List<Product> ownedProducts;

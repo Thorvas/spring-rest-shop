@@ -14,4 +14,9 @@ public class WebController {
 		theModel.addAttribute("localTime", new java.util.Date());
 		return "helloworld";
 	}	
+	
+	@GetMapping("/postOrder")
+	public String orderForm() {
+		return null;
+	}
 }

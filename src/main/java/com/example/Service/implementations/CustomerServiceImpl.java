@@ -7,8 +7,6 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.example.DAO.CustomerDAO;
 import com.example.Entities.Customer;
 import com.example.Repositories.CustomerRepository;
 import com.example.Service.CustomerService;
