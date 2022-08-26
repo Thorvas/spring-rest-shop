@@ -3,9 +3,9 @@ Spring Boot REST API of shop web application developed through process of learni
 <br />
 Currently available entities: <br />
 ⦿ Customer <br />
+⦿ Order
 ⦿ Product <br />
 <br />
-<i> I'm going to refactor this code, so I could also add new class called <b>Order</b> which could contain both customers and products sold/bought</i>
 
 TODO: <br />
 🗘 Implement Spring Security authentication system <br />
