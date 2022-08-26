@@ -3,7 +3,7 @@ Spring Boot REST API of shop web application developed through process of learni
 <br />
 Currently available entities: <br />
 ⦿ Customer <br />
-⦿ Order
+⦿ Order <br />
 ⦿ Product <br />
 <br />
 
