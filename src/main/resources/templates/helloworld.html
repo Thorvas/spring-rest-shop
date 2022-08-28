@@ -10,7 +10,7 @@
 <body>
 <div class="d-flex flex-row bg-light-dark justify-content-center border border-1 text-light sticky-top">
 <div class="p-2"><a th:href="@{/home}"> Home page</a> </div>
-<div class="p-2"> Show your orders </div>
+<div class="p-2"><a tf:href="@{/postOrder}"> Show your orders</a> </div>
 <div class="p-2"> Post an offer </div>
 </div>
   <div class="row row-no-padding bg-dark border border-1 text-light">
@@ -18,8 +18,10 @@
       Test
     </div>
     <div class="col-8  bg-cyan border border-1 text-light">
-    <div th:each="singleOrder : ${orders}" class="d-flex flex-column">	
-      <div th:text="${singleOrder.getDescription}" class="p-2"></div>
+    <div th:each="singleProduct : ${products}" class="d-flex flex-column justify-content-center border">	
+      <div th:text="'Owners id: '+ ${singleProduct.productOwner.id}" class="p-2"></div>
+      <div th:text="'Product name: '+ ${singleProduct.productName}" class="p-2"></div>
+      <div th:text="'Product description: '+ ${singleProduct.productDescription}" class="p-2"></div>
     </div>
     </div>
     <div class="col bg-dark border border-1 text-light">

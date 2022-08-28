@@ -35,13 +35,7 @@ public class Customer {
 	@Column(name="email")
 	private String email;
 	
-	@OneToOne(mappedBy="owner")
-	private Order ownedOrder;
-	
-	@OneToOne(mappedBy="buyer")
-	private Order orderBuyer;
-	
-	@OneToMany(mappedBy="productOwner", fetch=FetchType.LAZY, cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="productOwner")
 	private List<Product> ownedProducts;
 	
 	public List<Product> getOwnedProducts() {

@@ -36,11 +36,6 @@ public class Product {
 	@ManyToOne
 	@JoinColumn(name="owner_id")
 	private Customer productOwner;
-	
-	@ManyToOne
-	@JoinColumn(name="order_id")
-	private Order parentOrder;
-	
 	public Product() {
 		
 	}
