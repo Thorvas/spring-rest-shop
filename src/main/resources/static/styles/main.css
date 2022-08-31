@@ -24,3 +24,8 @@ a:hover, a:focus {
     color: orange;
     text-decoration: underline;
 }
+
+.save_button {
+    min-width: 80px;
+    max-width: 80px;
+}

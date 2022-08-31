@@ -1,0 +1,16 @@
+<!DOCTYPE HTML>
+<html xmlns:tf="http://thymeleaf.org">
+<head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link th:href="@{/styles/main.css}" rel="stylesheet" />
+</head>
+<body>
+<div class="d-flex flex-row bg-light-dark justify-content-center border border-1 text-light sticky-top">
+<div class="p-2"><a th:href="@{/home}"> Home page</a> </div>
+<div class="p-2"><a tf:href="@{/postOrder}"> Show your orders</a> </div>
+<div class="p-2"> Post an offer </div>
+</div>
+
+</body>
+
+</html>
