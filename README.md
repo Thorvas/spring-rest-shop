@@ -7,6 +7,8 @@ Currently available entities: <br />
 ⦿ Product <br />
 <br />
 
+<i>REST API and views are not secured yet, but it will be implemented soon! </i> <br />
+
 TODO: <br />
 🗘 Implement Spring Security authentication system <br />
 ✔️ Make use of Thymeleaf in web pages <br />
