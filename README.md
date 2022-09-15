@@ -7,7 +7,7 @@ Currently available entities: <br />
 ⦿ Product <br />
 <br />
 
-<i>REST API and views are not secured yet, but it will be implemented soon! </i> <br />
+<i>REST API and views are implemented on a basic level. </i> <br />
 
 TODO: <br />
 🗘 Implement Spring Security authentication system <br />
