@@ -5,6 +5,8 @@ Currently available entities: <br />
 ⦿ Customer <br />
 ⦿ Order <br />
 ⦿ Product <br />
+⦿ Users <br />
+⦿ Authorities <br />
 <br />
 
 <i>REST API and views are implemented on a basic level. </i> <br />
