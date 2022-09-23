@@ -26,6 +26,17 @@ public class Customer {
 	@Column(name="id")
 	private int id;
 	
+	@Column(name="balance")
+	private int balance;
+	
+	public int getBalance() {
+		return balance;
+	}
+
+	public void setBalance(int balance) {
+		this.balance = balance;
+	}
+
 	@Column(name="first_name")
 	private String firstName;
 	
@@ -35,7 +46,7 @@ public class Customer {
 	@Column(name="email")
 	private String email;
 	
-	@OneToMany(mappedBy="productOwner")
+	@OneToMany(mappedBy="productOwner", fetch=FetchType.EAGER)
 	private List<Product> ownedProducts;
 	
 	public List<Product> getOwnedProducts() {

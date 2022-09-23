@@ -10,12 +10,14 @@
 <body>
 <div class="d-flex flex-row bg-light-dark justify-content-center border border-1 text-light sticky-top">
 <div class="p-2"><a th:href="@{/home}"> Home page</a> </div>
-<div class="p-2"><a tf:href="@{/postOrder}"> History of transactions</a> </div>
+<div class="p-2"><a th:href="@{/home/listProducts}"> Show posted products</a> </div>
 <div class="p-2"> Post an offer </div>
+<div class="p-2"><div th:text="'Current balance: '+${currUser.customer.balance}+'$'"></div></div>
+<div class="p-2"><a th:href="@{/logout}">Logout</a> </div>
 </div>
   <div class="row row-no-padding bg-dark border border-1 text-light">
     <div class="col ">
-      <div th:text="${currUser.customer.firstName}"></div>
+      
     </div>
     <div class="col-8  bg-cyan border border-1 text-light">
     

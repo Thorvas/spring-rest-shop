@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -38,9 +39,30 @@ public class OfferController {
 	}
 	
 	@GetMapping("/showOffer/{offerId}")
-	public String getView(@PathVariable int offerId, Model theModel) {
+	public String getOffer(@PathVariable int offerId, Model theModel, @AuthenticationPrincipal MyUserDetails user) {
 		Product retrievedProduct = productService.findById(offerId);
-		theModel.addAttribute("product", retrievedProduct);
-		return "showoffers";
+		if (user.getCustomer().getBalance() >= retrievedProduct.getProductCost())
+		{
+			Customer retrievedProductOwner = retrievedProduct.getProductOwner();
+			user.getCustomer().setBalance(user.getCustomer().getBalance()-retrievedProduct.getProductCost());
+			productService.delete(retrievedProduct.getId());
+			retrievedProduct.getProductOwner().getOwnedProducts().clear();
+			retrievedProduct.getProductOwner().setOwnedProducts(productService.listOwnerProducts(retrievedProduct.getProductOwner()));
+		}
+		else {
+			System.out.println("Insufficient funds!");
+		}
+		return "redirect:/home";
+	}
+
+	@GetMapping("/listProducts")
+	public String getProducts(Model theModel, @AuthenticationPrincipal MyUserDetails user) {
+		List<Product> ownedProducts = productService.listOwnerProducts(user.getCustomer());
+		System.out.println(user.getCustomer().getBalance());
+		for (Product p : ownedProducts) {
+			System.out.println(p.getProductName());
+		}
+		theModel.addAttribute("productList", ownedProducts);
+		return "ownedproducts";
 	}
 }

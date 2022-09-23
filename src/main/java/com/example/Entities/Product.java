@@ -33,7 +33,7 @@ public class Product {
 	@Column(name="cost")
 	private int productCost;
 	
-	@ManyToOne
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name="owner_id")
 	private Customer productOwner;
 	public Product() {

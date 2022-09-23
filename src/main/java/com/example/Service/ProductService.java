@@ -2,6 +2,7 @@ package com.example.Service;
 
 import java.util.List;
 
+import com.example.Entities.Customer;
 import com.example.Entities.Product;
 
 public interface ProductService {
@@ -9,4 +10,5 @@ public interface ProductService {
 	public Product findById(int idToFind);
 	public void save(Product newProduct);
 	public void delete(int idToDelete);
+	public List<Product> listOwnerProducts(Customer owner);
 }
