@@ -11,7 +11,7 @@
 <div class="d-flex flex-row bg-light-dark justify-content-center border border-1 text-light sticky-top">
 <div class="p-2"><a th:href="@{/home}"> Home page</a> </div>
 <div class="p-2"><a th:href="@{/home/listProducts}"> Show posted products</a> </div>
-<div class="p-2"> Post an offer </div>
+<div class="p-2"><a th:href="@{/home/postOffer}"> Post an offer</a> </div>
 <div class="p-2"><div th:text="'Current balance: '+${currUser.customer.balance}+'$'"></div></div>
 <div class="p-2"><a th:href="@{/logout}">Logout</a> </div>
 </div>
@@ -42,13 +42,13 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <a th:href="@{/home/showOffer/{id} (id=${singleProduct.id})}"><button type="button" class="btn btn-primary">Buy</button></a>
+        <a th:href="@{/home/showOffer(offerId=${singleProduct.id})}"><button type="button" class="btn btn-primary">Buy</button></a>
       </div>
     </div>
   </div>
  </div>
  
-      <a th:href="@{/home/showOffer/{id} (id=${singleProduct.id})}" data-toggle="modal" th:attr="data-target=${'#confirmModal'+singleProduct.id}" class="btn btn-secondary p-2 save_button">Buy it!</a>
+      <a th:href="@{/home/showOffer(offerId=${singleProduct.id})}" data-toggle="modal" th:attr="data-target=${'#confirmModal'+singleProduct.id}" class="btn btn-secondary p-2 save_button">Buy it!</a>
     </div>
 </div>
     <div class="col bg-dark border border-1 text-light">

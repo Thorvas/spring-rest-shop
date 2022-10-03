@@ -22,6 +22,7 @@
       <td th:text="${singleProduct.productName}"></td>
       <td th:text="${singleProduct.productDescription}"></td>
       <td th:text="${singleProduct.productCost}"></td>
+      <td><a th:href="@{/home/deleteOffer(offerId=${singleProduct.id})}">Delete an offer</a></td>
     </tr>
     </div>
   </tbody>

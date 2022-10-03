@@ -8,6 +8,7 @@ import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.Entities.Customer;
+import com.example.Entities.Product;
 import com.example.Repositories.CustomerRepository;
 import com.example.Service.CustomerService;
 
@@ -50,5 +51,40 @@ public class CustomerServiceImpl implements CustomerService {
 		customerDAO.deleteById(newId);
 
 	}
+	
+	
+	
+	@Override
+	@Transactional
+	public List<Product> listOwnerProducts(Customer owner) {
+		int id = owner.getId();
+		Optional<Customer> foundCustomer = customerDAO.findById(id);
+		Customer toUpdate = foundCustomer.get();
+		return toUpdate.getOwnedProducts();
+	}
+	
+	@Override
+	@Transactional
+	public void deleteProduct(Customer foundCustomer, Product productToDelete) {
+		foundCustomer.getOwnedProducts().remove(productToDelete);
+		customerDAO.save(foundCustomer);
+	}
+	
+	@Override
+	@Transactional
+	public boolean processPayment(Customer customerToEdit, Product productToOperate) {
+		if (customerToEdit.getBalance() >= productToOperate.getProductCost())
+		{
+			Customer retrievedProductOwner = productToOperate.getProductOwner();
+			customerToEdit.setBalance(customerToEdit.getBalance()-productToOperate.getProductCost());
+			this.deleteProduct(retrievedProductOwner, productToOperate);
+		}
+		else {
+			System.out.println("Insufficient funds!");
+			return false;
+		}
+		return true;
+	}
+	
 
 }

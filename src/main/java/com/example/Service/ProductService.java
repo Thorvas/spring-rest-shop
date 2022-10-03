@@ -10,5 +10,4 @@ public interface ProductService {
 	public Product findById(int idToFind);
 	public void save(Product newProduct);
 	public void delete(int idToDelete);
-	public List<Product> listOwnerProducts(Customer owner);
 }

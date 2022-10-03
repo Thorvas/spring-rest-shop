@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<link th:href="@{/styles/main.css}" rel="stylesheet" />
+	<title>Thymeleaf Demo</title>
+</head>
+
+<body>
+<form action="#" th:action="@{/home/postOffer}" th:object="${product}" method="post">
+<input type="hidden" th:field="*{id}">
+<p>Product name: <input type="text" th:field="*{productName}" /> </p>
+<p>Product description: <input type="text" th:field="*{productDescription}" /> </p>
+<p>Product category: <input type="text" th:field="*{productCategory}" /> </p>
+<p>Product Cost: <input type="number" th:field="*{productCost}"> </p>
+<p><input type="submit" value="Submit" /> <input type="reset" value="Reset" />
+</form>
+</body>
+
+</html>

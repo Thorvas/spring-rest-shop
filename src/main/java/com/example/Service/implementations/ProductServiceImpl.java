@@ -50,10 +50,5 @@ public class ProductServiceImpl implements ProductService {
 		productRepository.deleteById(idToDelete);
 
 	}
-	
-	@Override
-	public List<Product> listOwnerProducts(Customer owner) {
-		return owner.getOwnedProducts();
-	}
 
 }

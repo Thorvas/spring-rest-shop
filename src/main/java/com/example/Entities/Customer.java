@@ -29,6 +29,42 @@ public class Customer {
 	@Column(name="balance")
 	private int balance;
 	
+	@Column(name="first_name")
+	private String firstName;
+	
+	@Column(name="last_name")
+	private String lastName;
+
+
+	@Column(name="email")
+	private String email;
+	
+	@OneToMany(mappedBy="productOwner", fetch=FetchType.EAGER, cascade = CascadeType.PERSIST, orphanRemoval = true)
+	private List<Product> ownedProducts;
+	
+	@OneToOne(mappedBy="customer")
+	private Users user;
+	
+	
+	public Users getUser() {
+		return user;
+	}
+
+	public void setUser(Users user) {
+		this.user = user;
+	}
+	
+	public List<Product> getOwnedProducts() {
+		return ownedProducts;
+	}
+	
+	public void addProduct(Product newProduct) {
+		this.ownedProducts.add(newProduct);
+	}
+	public void removeProduct(Product newProduct) {
+		this.ownedProducts.remove(newProduct);
+	}
+	
 	public int getBalance() {
 		return balance;
 	}
@@ -37,21 +73,6 @@ public class Customer {
 		this.balance = balance;
 	}
 
-	@Column(name="first_name")
-	private String firstName;
-	
-	@Column(name="last_name")
-	private String lastName;
-	
-	@Column(name="email")
-	private String email;
-	
-	@OneToMany(mappedBy="productOwner", fetch=FetchType.EAGER)
-	private List<Product> ownedProducts;
-	
-	public List<Product> getOwnedProducts() {
-		return ownedProducts;
-	}
 
 	public void setOwnedProducts(List<Product> ownedProducts) {
 		this.ownedProducts = ownedProducts;

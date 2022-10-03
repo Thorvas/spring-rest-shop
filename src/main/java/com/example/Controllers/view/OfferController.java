@@ -11,8 +11,11 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.example.Entities.Customer;
 import com.example.Entities.Product;
@@ -38,31 +41,43 @@ public class OfferController {
 		return "helloworld";
 	}
 	
-	@GetMapping("/showOffer/{offerId}")
-	public String getOffer(@PathVariable int offerId, Model theModel, @AuthenticationPrincipal MyUserDetails user) {
+	@GetMapping("/showOffer")
+	public String getOffer(@RequestParam("offerId") int offerId, Model theModel, @AuthenticationPrincipal MyUserDetails user) {
 		Product retrievedProduct = productService.findById(offerId);
-		if (user.getCustomer().getBalance() >= retrievedProduct.getProductCost())
-		{
-			Customer retrievedProductOwner = retrievedProduct.getProductOwner();
-			user.getCustomer().setBalance(user.getCustomer().getBalance()-retrievedProduct.getProductCost());
-			productService.delete(retrievedProduct.getId());
-			retrievedProduct.getProductOwner().getOwnedProducts().clear();
-			retrievedProduct.getProductOwner().setOwnedProducts(productService.listOwnerProducts(retrievedProduct.getProductOwner()));
-		}
-		else {
-			System.out.println("Insufficient funds!");
+		if (customerService.processPayment(user.getCustomer(), retrievedProduct)) {
 		}
 		return "redirect:/home";
 	}
 
 	@GetMapping("/listProducts")
 	public String getProducts(Model theModel, @AuthenticationPrincipal MyUserDetails user) {
-		List<Product> ownedProducts = productService.listOwnerProducts(user.getCustomer());
-		System.out.println(user.getCustomer().getBalance());
-		for (Product p : ownedProducts) {
-			System.out.println(p.getProductName());
-		}
+		List<Product> ownedProducts = customerService.listOwnerProducts(user.getCustomer());
 		theModel.addAttribute("productList", ownedProducts);
 		return "ownedproducts";
+	}
+	
+	@GetMapping("/postOffer")
+	public String postForm(Model theModel) {
+		Product newProduct = new Product();
+		theModel.addAttribute("product", newProduct);
+		return "postform";
+	}
+	
+	@PostMapping("/postOffer")
+	public String submitForm(@ModelAttribute Product product, Model theModel, @AuthenticationPrincipal MyUserDetails user) {
+		Customer foundCustomer = customerService.findById(user.getCustomer().getId());
+		product.setProductOwner(foundCustomer);
+		foundCustomer.getOwnedProducts().add(product);
+		productService.save(product);
+		customerService.save(foundCustomer);
+		return "redirect:/home";
+	}
+	
+	@GetMapping("/deleteOffer")
+	public String deleteOffer(@RequestParam("offerId") int offerId, @AuthenticationPrincipal MyUserDetails user) {
+		Customer foundCustomer = customerService.findById(user.getCustomer().getId());
+		Product foundProduct = productService.findById(offerId);
+		customerService.deleteProduct(foundCustomer, foundProduct);
+		return "redirect:/home";
 	}
 }
