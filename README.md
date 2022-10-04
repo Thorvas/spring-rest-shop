@@ -12,7 +12,7 @@ Currently available entities: <br />
 <i>REST API and views are implemented on a basic level. </i> <br />
 
 TODO: <br />
-🗘 Implement Spring Security authentication system <br />
+✔️ Implement basic Spring Security authentication system <br />
 ✔️ Make use of Thymeleaf in web pages <br />
-⦿ Add JWT functionality to project <br />
+🗘 Add JWT functionality to project <br />
 ⦿ Implement usage of Spring Cloud <br />
