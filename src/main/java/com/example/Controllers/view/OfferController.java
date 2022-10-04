@@ -35,17 +35,19 @@ public class OfferController {
 	
 	@GetMapping("")
 	public String getView(Model theModel, @AuthenticationPrincipal MyUserDetails user) {
+		Customer foundCustomer = customerService.findById(user.getCustomer().getId());
 		List<Product> retrievedProducts = productService.listAll();
 		theModel.addAttribute("products", retrievedProducts);
 		theModel.addAttribute("currUser", user);
+		theModel.addAttribute("currCustomer", foundCustomer);
 		return "helloworld";
 	}
 	
 	@GetMapping("/showOffer")
 	public String getOffer(@RequestParam("offerId") int offerId, Model theModel, @AuthenticationPrincipal MyUserDetails user) {
+		Customer currentCustomer = customerService.findById(user.getCustomer().getId());
 		Product retrievedProduct = productService.findById(offerId);
-		if (customerService.processPayment(user.getCustomer(), retrievedProduct)) {
-		}
+		customerService.processPayment(currentCustomer, retrievedProduct);
 		return "redirect:/home";
 	}
 
@@ -66,10 +68,8 @@ public class OfferController {
 	@PostMapping("/postOffer")
 	public String submitForm(@ModelAttribute Product product, Model theModel, @AuthenticationPrincipal MyUserDetails user) {
 		Customer foundCustomer = customerService.findById(user.getCustomer().getId());
-		product.setProductOwner(foundCustomer);
-		foundCustomer.getOwnedProducts().add(product);
-		productService.save(product);
-		customerService.save(foundCustomer);
+		productService.processPost(foundCustomer, product);
+		customerService.processPost(foundCustomer, product);
 		return "redirect:/home";
 	}
 	

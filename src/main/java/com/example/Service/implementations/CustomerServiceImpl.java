@@ -78,12 +78,21 @@ public class CustomerServiceImpl implements CustomerService {
 			Customer retrievedProductOwner = productToOperate.getProductOwner();
 			customerToEdit.setBalance(customerToEdit.getBalance()-productToOperate.getProductCost());
 			this.deleteProduct(retrievedProductOwner, productToOperate);
+			System.out.println("Saving!");
+			customerDAO.save(customerToEdit);
 		}
 		else {
 			System.out.println("Insufficient funds!");
 			return false;
 		}
 		return true;
+	}
+	
+	public void processPost(Customer foundCustomer, Product productToProcess) {
+		foundCustomer.getOwnedProducts().add(productToProcess);
+		customerDAO.save(foundCustomer);
+		
+		
 	}
 	
 

@@ -10,7 +10,7 @@ import org.springframework.security.web.header.writers.PermissionsPolicyHeaderWr
 import com.google.common.collect.Sets;
 
 public enum ApplicationRole {
-	STUDENT(Sets.newHashSet()),
+	STUDENT(Sets.newHashSet(ApplicationUserPermission.COURSE_WRITE)),
 	ADMIN(Sets.newHashSet(ApplicationUserPermission.STUDENT_READ, ApplicationUserPermission.STUDENT_WRITE, ApplicationUserPermission.COURSE_WRITE, ApplicationUserPermission.COURSE_READ));
 	
 	

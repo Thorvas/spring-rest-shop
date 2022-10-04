@@ -42,7 +42,7 @@ public class SecurityConfig {
 		http
 		.authorizeRequests()
 		.antMatchers("/", "/home", "/styles/**")
-		.hasAuthority(ApplicationUserPermission.COURSE_WRITE.getPermission())
+		.hasAnyRole("ADMIN", "STUDENT")
 		.anyRequest()
 		.authenticated()
 		.and()
@@ -51,6 +51,6 @@ public class SecurityConfig {
 	}
 	
 	public void configureAuthentication(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(getUserDetailsService()).passwordEncoder(new BCryptPasswordEncoder());
+		auth.userDetailsService(getUserDetailsService()).passwordEncoder(this.passwordEncoder);
 	}
 }

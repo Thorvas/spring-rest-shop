@@ -50,5 +50,10 @@ public class ProductServiceImpl implements ProductService {
 		productRepository.deleteById(idToDelete);
 
 	}
+	
+	public void processPost(Customer foundCustomer, Product productToProcess) {
+		productToProcess.setProductOwner(foundCustomer);
+		productRepository.save(productToProcess);
+	}
 
 }

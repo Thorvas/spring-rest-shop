@@ -10,4 +10,5 @@ public interface ProductService {
 	public Product findById(int idToFind);
 	public void save(Product newProduct);
 	public void delete(int idToDelete);
+	public void processPost(Customer foundCustomer, Product productToProcess);
 }

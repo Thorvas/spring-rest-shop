@@ -14,4 +14,5 @@ public interface CustomerService {
 	public boolean processPayment(Customer customerToEdit, Product productToOperate);
 	public List<Product> listOwnerProducts(Customer owner);
 	public void deleteProduct(Customer foundCustomer, Product productToDelete);
+	public void processPost(Customer foundCustomer, Product productToProcess);
 }
