@@ -19,4 +19,4 @@ Currently available entities: <br />
 ⚪ Refactor Role and Authority system <br />
 ⚪ Refactor services' code so they could be usable by many classes <br />
 ⚪ Implement usage of Spring Cloud <br />
-⚪ Implement huge visual refactor <br />
+⚪ Implement huge visual refactor (consider using React) <br />
