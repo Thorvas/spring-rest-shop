@@ -78,7 +78,6 @@ public class CustomerServiceImpl implements CustomerService {
 			Customer retrievedProductOwner = productToOperate.getProductOwner();
 			customerToEdit.setBalance(customerToEdit.getBalance()-productToOperate.getProductCost());
 			this.deleteProduct(retrievedProductOwner, productToOperate);
-			System.out.println("Saving!");
 			customerDAO.save(customerToEdit);
 		}
 		else {

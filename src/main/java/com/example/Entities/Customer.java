@@ -1,6 +1,7 @@
 package com.example.Entities;
 
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,9 +10,15 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.LazyCollection;
+import org.hibernate.annotations.LazyCollectionOption;
 
 //Customer entity mapped to database
 
@@ -38,13 +45,43 @@ public class Customer {
 
 	@Column(name="email")
 	private String email;
-	
-	@OneToMany(mappedBy="productOwner", fetch=FetchType.EAGER, cascade = CascadeType.PERSIST, orphanRemoval = true)
+
+
+	@OneToMany(mappedBy="productOwner", fetch=FetchType.EAGER, orphanRemoval = true)
 	private List<Product> ownedProducts;
 	
 	@OneToOne(mappedBy="customer")
 	private Users user;
 	
+	@ManyToMany
+	@JoinTable(name="friends",
+	joinColumns = @JoinColumn(name="customer_id"),
+	inverseJoinColumns=@JoinColumn(name="friend_id")
+	)
+	private Set<Customer> friends;
+	
+	public Set<Customer> getFriends() {
+		return friends;
+	}
+
+	public void setFriends(Set<Customer> friends) {
+		this.friends = friends;
+	}
+
+	public Set<Customer> getFriendOf() {
+		return friendOf;
+	}
+
+	public void setFriendOf(Set<Customer> friendOf) {
+		this.friendOf = friendOf;
+	}
+
+	@ManyToMany
+	@JoinTable(name="friends",
+	joinColumns = @JoinColumn(name="friend_id"),
+	inverseJoinColumns=@JoinColumn(name="customer_id")
+	)
+	private Set<Customer> friendOf;
 	
 	public Users getUser() {
 		return user;

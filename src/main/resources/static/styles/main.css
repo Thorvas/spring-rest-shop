@@ -29,3 +29,15 @@ a:hover, a:focus {
     min-width: 80px;
     max-width: 80px;
 }
+
+.hiddenElement {
+	display: block;
+}
+
+.hiddenMenu {
+	display: none;
+}
+
+.inline {
+	display: inline-block;
+}

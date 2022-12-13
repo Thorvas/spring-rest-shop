@@ -9,8 +9,10 @@
 
 <body>
 <form action="#" th:action="@{/home/postOffer}" th:object="${product}" method="post">
+<div class="form-group">
 <input type="hidden" th:field="*{id}">
 <p>Product name: <input type="text" th:field="*{productName}" /> </p>
+</div>
 <p>Product description: <input type="text" th:field="*{productDescription}" /> </p>
 <p>Product category: <input type="text" th:field="*{productCategory}" /> </p>
 <p>Product Cost: <input type="number" th:field="*{productCost}"> </p>

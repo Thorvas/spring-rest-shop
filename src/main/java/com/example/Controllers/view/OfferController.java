@@ -30,8 +30,26 @@ public class OfferController {
 	@Autowired
 	CustomerService customerService;
 	
+	
 	@Autowired
 	ProductService productService;
+	
+	@PostMapping("/addMoney")
+	public String processIncrease(@RequestParam("id") int id, @RequestParam("toAdd") int toAdd) {
+		Customer foundCustomer = customerService.findById(id);
+		foundCustomer.setBalance(toAdd);
+		customerService.save(foundCustomer);
+		return "redirect:/home";
+	}
+	
+	@PostMapping("/addFriend")
+	public String getPost(@RequestParam(value="id", required=false) Integer friendId, @RequestParam(value="", required=false) Integer customerId, @ModelAttribute Customer customer) {
+		System.out.println(friendId);
+		System.out.println(customerId);
+		System.out.println(customer.getId());
+		
+		return "redirect:/home";
+	}
 	
 	@GetMapping("")
 	public String getView(Model theModel, @AuthenticationPrincipal MyUserDetails user) {
@@ -40,6 +58,7 @@ public class OfferController {
 		theModel.addAttribute("products", retrievedProducts);
 		theModel.addAttribute("currUser", user);
 		theModel.addAttribute("currCustomer", foundCustomer);
+		theModel.addAttribute("customerFriends", foundCustomer.getFriends());
 		return "helloworld";
 	}
 	
@@ -48,13 +67,14 @@ public class OfferController {
 		Customer currentCustomer = customerService.findById(user.getCustomer().getId());
 		Product retrievedProduct = productService.findById(offerId);
 		customerService.processPayment(currentCustomer, retrievedProduct);
+		productService.delete(retrievedProduct.getId());
 		return "redirect:/home";
 	}
 
 	@GetMapping("/listProducts")
 	public String getProducts(Model theModel, @AuthenticationPrincipal MyUserDetails user) {
-		List<Product> ownedProducts = customerService.listOwnerProducts(user.getCustomer());
-		theModel.addAttribute("productList", ownedProducts);
+		Customer foundCustomer = customerService.findById(user.getCustomer().getId());
+		theModel.addAttribute("customer", foundCustomer);
 		return "ownedproducts";
 	}
 	
@@ -78,6 +98,24 @@ public class OfferController {
 		Customer foundCustomer = customerService.findById(user.getCustomer().getId());
 		Product foundProduct = productService.findById(offerId);
 		customerService.deleteProduct(foundCustomer, foundProduct);
+		productService.delete(foundProduct.getId());
 		return "redirect:/home";
+	}
+	
+	@GetMapping("/showBalance")
+	public String showBalance(Model theModel, @AuthenticationPrincipal MyUserDetails user) {
+		Customer foundCustomer = customerService.findById(user.getCustomer().getId());
+		theModel.addAttribute("customer", foundCustomer);
+		return "showbalance";
+	}
+	
+	@GetMapping("/customer/{customerId}")
+	public String getCustomer(Model theModel, @PathVariable int customerId, @AuthenticationPrincipal MyUserDetails user) {
+		Customer currUser = customerService.findById(user.getCustomer().getId());
+		Customer foundCustomer = customerService.findById(customerId);
+		theModel.addAttribute("friend", foundCustomer);
+		theModel.addAttribute("customer", currUser);
+		return "customerdetails";
+		
 	}
 }

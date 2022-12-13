@@ -5,6 +5,17 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <link th:href="@{/styles/main.css}" rel="stylesheet" />
 	<title>Thymeleaf Demo</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="application/javascript">
+$('.dropdown-toggle').click(function() {
+	alert("a");
+	  $(this).next('.dropdown-menu').slideToggle(500);
+	});
+
+</script>
+	<script src="/webjars/sockjs-client/sockjs.min.js"></script>
+	<script src="/webjars/stomp-websocket/stomp.min.js"></script>
+
 </head>
 
 <body>
@@ -12,13 +23,32 @@
 <div class="p-2"><a th:href="@{/home}"> Home page</a> </div>
 <div class="p-2"><a th:href="@{/home/listProducts}"> Show posted products</a> </div>
 <div class="p-2"><a th:href="@{/home/postOffer}"> Post an offer</a> </div>
-<div class="p-2"><div th:text="'Current balance: '+${currCustomer.balance}+'$'"></div></div>
+<div class="dropdown">
+  <button class="btn text-light dropdown-toggle btn-block" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-expanded="false">
+<div class="inline" th:text="'Balance: '+${currCustomer.balance}+'$'"> </div>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+    <li><button class="dropdown-item" data-toggle="modal" data-target="#exampleModal">Set balance</button></li>
+  </ul>
+</div>
+<div class="dropdown">
+  <button class="btn text-light dropdown-toggle btn-block" type="button" id="dropdownMenuButton1" data-toggle="dropdown" aria-expanded="false">
+<div class="inline" th:text="'Friends list'"> </div>
+  </button>
+  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+  	<div th:each="singleFriend : ${customerFriends}">
+  	
+    <li><a th:href="@{|/home/customer/${singleFriend.id}|}"><button th:text="${singleFriend.firstName}+' '+${singleFriend.lastName}" class="dropdown-item"></button></a></li>
+    </div>
+  </ul>
+</div>
+
 <div class="p-2"><a th:href="@{/logout}">Logout</a> </div>
 </div>
   <div class="row row-no-padding bg-dark border border-1 text-light">
     <div class="col ">
     <div sec:authorize="hasRole('ROLE_ADMIN')">
-  This content is only shown to administrators.
+
 </div>
     </div>
     <div class="col-8  bg-cyan border border-1 text-light">
@@ -54,18 +84,41 @@
     </div>
   </div>
  </div>
+
 	<span th:if="${singleProduct.productOwner.id != currCustomer.id}">
       <a th:href="@{/home/showOffer(offerId=${singleProduct.id})}" data-toggle="modal" th:attr="data-target=${'#confirmModal'+singleProduct.id}" class="btn btn-secondary p-2 save_button">Buy it!</a>
      </span>
 </div>
 </div>
     <div class="col bg-dark border border-1 text-light">
-      test2
+      
     </div>
   </div>
 
-
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">What amount of money do you wish to have?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div th:text="'Enter the proper value:'" class="p-2"></div>
+        <form action="#" th:action="@{/home/addMoney}" th:object="${currCustomer}" method="post">
+        <input type="hidden" th:field="${currCustomer.id}" th:attr="name='id'" />
+        <input type="number" th:attr="name='toAdd'" />
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <input type="submit" value="Confirm" class="btn btn-primary" />
+        </form>
+      </div>
+    </div>
+  </div>
+ </div>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.14.7/dist/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 </body>
