@@ -53,8 +53,8 @@ public class Customer {
 	@OneToOne(mappedBy="customer")
 	private Users user;
 	
-	@ManyToMany
-	@JoinTable(name="friends",
+	@ManyToMany(cascade=CascadeType.PERSIST)
+	@JoinTable(name="friends", 
 	joinColumns = @JoinColumn(name="customer_id"),
 	inverseJoinColumns=@JoinColumn(name="friend_id")
 	)
@@ -76,11 +76,7 @@ public class Customer {
 		this.friendOf = friendOf;
 	}
 
-	@ManyToMany
-	@JoinTable(name="friends",
-	joinColumns = @JoinColumn(name="friend_id"),
-	inverseJoinColumns=@JoinColumn(name="customer_id")
-	)
+	@ManyToMany(mappedBy="friends", cascade=CascadeType.PERSIST)
 	private Set<Customer> friendOf;
 	
 	public Users getUser() {

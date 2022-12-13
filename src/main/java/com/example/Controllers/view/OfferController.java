@@ -1,7 +1,9 @@
 package com.example.Controllers.view;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
@@ -43,10 +45,16 @@ public class OfferController {
 	}
 	
 	@PostMapping("/addFriend")
-	public String getPost(@RequestParam(value="id", required=false) Integer friendId, @RequestParam(value="", required=false) Integer customerId, @ModelAttribute Customer customer) {
-		System.out.println(friendId);
-		System.out.println(customerId);
-		System.out.println(customer.getId());
+	public String getPost(@RequestParam(value="friendId", required=false) int friendId, @RequestParam(value="customerId", required=false) int customerId) {
+		Customer friend = customerService.findById(friendId);
+		Customer currentUser = customerService.findById(customerId);
+		Set<Customer> friends = new HashSet<Customer>();
+		Set<Customer> friendof = new HashSet<Customer>();
+		friends.add(friend);
+		friendof.add(currentUser);
+		currentUser.setFriends(friends);
+		friend.setFriendOf(friendof);
+		customerService.save(currentUser);
 		
 		return "redirect:/home";
 	}
@@ -66,8 +74,9 @@ public class OfferController {
 	public String getOffer(@RequestParam("offerId") int offerId, Model theModel, @AuthenticationPrincipal MyUserDetails user) {
 		Customer currentCustomer = customerService.findById(user.getCustomer().getId());
 		Product retrievedProduct = productService.findById(offerId);
-		customerService.processPayment(currentCustomer, retrievedProduct);
-		productService.delete(retrievedProduct.getId());
+		if (customerService.processPayment(currentCustomer, retrievedProduct)) {
+			productService.delete(retrievedProduct.getId());
+		}
 		return "redirect:/home";
 	}
 

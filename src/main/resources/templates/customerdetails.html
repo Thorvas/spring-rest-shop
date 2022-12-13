@@ -41,8 +41,8 @@
                 <div class="d-flex pt-1">
                   <button type="button" class="btn btn-outline-primary me-1 flex-grow-1">Chat</button>
                   <form action="#" th:action="@{/home/addFriend}" th:object="${friend}" method="post">
-        			<input type="hidden" th:field="${friend.id}" name="id" />
-        			<input type="hidden" th:field="${customer.id}" name="id2" />
+        			<input type="hidden" th:value="${friend.id}" name="friendId" />
+        			<input type="hidden" th:value="${customer.id}" name="customerId" />
                   <input type="submit" value="Add Friend" class="btn btn-primary flex-grow-1" />
                   </form>
                 </div>
