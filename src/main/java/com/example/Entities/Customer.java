@@ -20,6 +20,9 @@ import javax.persistence.Table;
 import org.hibernate.annotations.LazyCollection;
 import org.hibernate.annotations.LazyCollectionOption;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 //Customer entity mapped to database
 
 @Entity
@@ -51,6 +54,7 @@ public class Customer {
 	private List<Product> ownedProducts;
 	
 	@OneToOne(mappedBy="customer")
+	@JsonIgnore
 	private Users user;
 	
 	@ManyToMany(cascade=CascadeType.PERSIST)
@@ -58,6 +62,7 @@ public class Customer {
 	joinColumns = @JoinColumn(name="customer_id"),
 	inverseJoinColumns=@JoinColumn(name="friend_id")
 	)
+	@JsonIgnore
 	private Set<Customer> friends;
 	
 	public Set<Customer> getFriends() {
@@ -67,7 +72,7 @@ public class Customer {
 	public void setFriends(Set<Customer> friends) {
 		this.friends = friends;
 	}
-
+	
 	public Set<Customer> getFriendOf() {
 		return friendOf;
 	}
@@ -77,6 +82,7 @@ public class Customer {
 	}
 
 	@ManyToMany(mappedBy="friends", cascade=CascadeType.PERSIST)
+	@JsonIgnore
 	private Set<Customer> friendOf;
 	
 	public Users getUser() {

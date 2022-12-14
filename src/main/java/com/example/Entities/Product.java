@@ -38,7 +38,7 @@ public class Product {
 	
 	@ManyToOne(fetch=FetchType.EAGER, cascade = CascadeType.DETACH)
 	@JoinColumn(name="owner_id")
-	private Customer productOwner;
+	private Customer productOwner;	
 
 	public Product() {
 		

@@ -14,14 +14,12 @@
           <div class="card-body p-4">
             <div class="d-flex text-black">
               <div class="flex-shrink-0">
-                <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-profiles/avatar-1.webp"
+                <img src="https://as1.ftcdn.net/v2/jpg/03/39/45/96/1000_F_339459697_XAFacNQmwnvJRqe1Fe9VOptPWMUxlZP8.jpg"
                   alt="Generic placeholder image" class="img-fluid"
                   style="width: 180px; border-radius: 10px;">
               </div>
               <div class="flex-grow-1 ms-3">
-                <h5 class="mb-1">Danny McLoan</h5>
-                <div th:text="${friend.id}"></div>
-                <div th:text="${customer.id}"></div>
+                <h5 class="mb-1" th:text="${friend.firstName}+' '+${friend.lastName}"></h5>
                 <p class="mb-2 pb-1" style="color: #2b2a2a;">Senior Journalist</p>
                 <div class="d-flex justify-content-start rounded-3 p-2 mb-2"
                   style="background-color: #efefef;">
