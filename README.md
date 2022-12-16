@@ -9,12 +9,13 @@ Currently available entities: <br />
 🔐 Authorities <br />
 <br />
 📝 To Do: <br />
+<hr />
 ✔️ Implement basic Spring Security authentication system <br />
 ✔️ Make use of Thymeleaf in web pages <br />
 ✔️ Implement Chat System using WebSockets <br />
 ✔️ Implement Friend System (Customer can add other customer to friends - customers could chat with each other) <br />
 ✔️ Implement basic API functionality for Customers and Products <br />
-🔧 Add JWT functionality to project <br />
+⚪ Add JWT functionality to project <br />
 ⚪ Implement Order class functionality to track every purchase <br />
 ⚪ Implement basic Unit Testing <br />
 ⚪ Develop API to higher levels of complexity (security, tokens, etc.) <br />
