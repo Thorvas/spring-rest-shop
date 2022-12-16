@@ -8,8 +8,9 @@ Currently available entities: <br />
 👥 Users <br />
 🔐 Authorities <br />
 <br />
+<hr style="border:1px solid gray">
 📝 To Do: <br />
-<hr />
+
 ✔️ Implement basic Spring Security authentication system <br />
 ✔️ Make use of Thymeleaf in web pages <br />
 ✔️ Implement Chat System using WebSockets <br />
